@@ -1,0 +1,62 @@
+﻿@using MELC.WebApp.MVC.Models.Faturamentos
+@model NewFaturamentoViewModel
+
+<div id="modalPlaceHolder">
+    <div class="modal fade" id="novoFaturamento" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div id="novoFaturamentoModalContent" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Cadastrar faturamento</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewFaturamento" class="modal-body">
+                    <form method="post">
+                        <input id="pedidoId" value="@Model.PedidoId" hidden />
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input id="nomeFaturamento" class="form-control" type="text" placeholder="Faturamento">
+                        </div>
+                        <div class="card mb-5 mt-1">
+                            <div id="cardBodyFinalizados" class="card-body p-4" style="height:auto;">
+                                <div class="card-title"><b>Peças finalizadas</b></div>
+                                <div class="accordion accordion-flush" id="accordion">
+                                    <div id="accordionDesenhosFinalizados" class="accordion-item">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="cardBodyFaturados" class="card-body p-4" style="height:auto;">
+                                <div class="card-title"><b>Peças faturadas</b></div>
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div id="accordionDesenhosFaturados" class="accordion-item">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button onclick="melc.pedidos.faturar()" class="btn btn-block btn-primary">Faturar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .accordionSeparator{
+        border-color: black;
+        border-bottom: dashed;
+        border-width: 2px
+    }
+
+    .accordion-button:not(.collapsed){
+        background-color:transparent;
+        color: black;
+        box-shadow:none;
+    }
+</style>
+

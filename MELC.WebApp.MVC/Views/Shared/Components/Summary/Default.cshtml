@@ -1,0 +1,33 @@
+﻿
+@if (ViewData.ModelState.ErrorCount > 0)
+{
+    <div style="display:flex; flex-direction:column" class="alert alert-danger" role="alert">
+        <div style="display:flex; flex-direction:row; width:100%; justify-content:space-between">
+            <h4 style="padding-top: 20px">Algo deu errado</h4>
+            <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+        </div>  
+        <div asp-validation-summary="ModelOnly"></div>
+    </div>
+}
+
+@{
+    if (TempData["Erros"] is IEnumerable<string> mensagensErro && mensagensErro.Any())
+    {
+        <div style="padding-top: 15px;"></div>
+
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <h3 id="msgRetorno" style="padding-top: 20px">Opa! Algo deu errado :(</h3>
+
+            <ul>
+                @{
+                    foreach (var erro in mensagensErro)
+                    {
+                        <li>@erro</li>
+                    }
+                }
+
+            </ul>
+        </div>
+    }
+}

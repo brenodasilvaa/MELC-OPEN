@@ -1,0 +1,43 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<DesenhoViewModel>
+
+<div style="margin-top:15px">
+    <div class="card w-50">
+        <div class="card-body p-4">
+            <div style="width:20rem;">
+                <div class="row g-3 justify-content-between mb-1">
+                    <div class="col-auto">
+                        <label class="col-form-label">Lucro (%)</label>
+                    </div>
+                    <div class="col-auto">
+                        <input value="@Model.Data.Desenho.Lucro" type="text" id="lucros" class="form-control inputAlign">
+                    </div>
+                </div>
+                <div class="row g-3 justify-content-between">
+                    <div class="col-auto">
+                        <label class="col-form-label">Impostos (%)</label>
+                    </div>
+                    <div class="col-auto">
+                        <input value="@Model.Data.Desenho.Impostos" type="text" id="impostos" class="form-control inputAlign">
+                    </div>
+                </div>
+                <button onclick="melc.desenhoDetalhe.updateLucrosImpostos()" id="salvarPercentuais" disabled class="btn btn-block btn-primary mt-3">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn-plus {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .inputAlign {
+        text-align: center
+    }
+</style>

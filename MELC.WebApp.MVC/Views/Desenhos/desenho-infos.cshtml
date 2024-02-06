@@ -1,0 +1,67 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<DesenhoViewModel>
+
+<div style="margin-top:15px">
+    <div class="card mb-5">
+        <div class="card-body p-4">
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="criadoPor" class="form-label">Criado por</label>
+                    <input readonly value="@Model.Data.Desenho.CriadoPor.UserName" type="text" class="form-control" id="criadoPor" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label for="criacao" class="form-label">Data de criação</label>
+                    <input readonly value="@Model.Data.Desenho.Created" type="text" class="form-control" id="criacao" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label for="criacao" class="form-label">Prioridade</label>
+                    <select @Html.Raw(User.IsAdmin() ? "" : "disabled='disabled'") id="prioridade" class="form-select">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="criadoPor" class="form-label">Status</label>
+                    <select id="status" class="form-select">
+                        <option value="0">Em fabricação</option>
+                        <option value="1">Parado</option>
+                        <option value="2">Finalizado</option>
+                        <option hidden value="4">Faturado</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="conjunto" class="form-label">Quantidade</label>
+                    <input value="@Model.Data.Desenho.Quantidade" type="text" class="form-control" id="quantidade">
+                </div>
+                <div class="col-md-3">
+                    <label for="conjunto" class="form-label">Conjunto</label>
+                    <input value="@Model.Data.Desenho.Conjunto" type="text" class="form-control" id="conjunto">
+                </div>
+                <div class="col-md-3">
+                    <label for="numeroConjunto" class="form-label">Número do conjunto</label>
+                    <input value="@Model.Data.Desenho.NumeroConjunto" type="number" class="form-control" id="numeroConjunto">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" rows="3">@Model.Data.Desenho.Descricao</textarea>
+                </div>
+                <button id="desenhoInfoBtn" disabled class="btn btn-block btn-primary col-sm-2">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn-plus {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+</style>

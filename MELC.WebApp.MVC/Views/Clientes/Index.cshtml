@@ -1,0 +1,88 @@
+﻿@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Clientes
+@model RetornoDto<IEnumerable<ClienteViewModel>>
+
+@if(User.IsAdmin())
+{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+} 
+else
+{
+    Layout = "~/Views/Shared/_LayoutPadrao.cshtml";
+
+}
+
+@section Scripts {
+    @Url.Script("clientes")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.clientes.iniciar() })
+    </script>
+}
+
+<div style="margin-left:1rem; margin-right:1rem">
+    <div class="column cards">
+        <button onclick="melc.clientes.novoCliente()" class="btn btn-primary btn-plus" type="submit">
+            <svg class="icon">
+                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+            </svg>
+            Cliente
+        </button>
+        @foreach (var cliente in Model.Data)
+        {
+            <div class="col-md" style=" margin-top:1rem">
+                <div class="card h-100 tableLines">
+                    <div class="card-body card-body-adjusts">
+                        <div style="width:90%" onclick="melc.clientes.getPedidos('@cliente.Id')">
+                            <h3 class="card-title">@cliente.Nome</h3>
+                            <p class="card-subtitle">@cliente.CNPJ</p>
+                        </div>
+                        <div style="width:10%; display:contents">
+                            @if (User.IsAdmin())
+                            {
+                                <div class="dropdown">
+                                    <button class="btn btn-transparent p-0" type="button" data-coreui-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-options"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <a class="dropdown-item" onclick="melc.clientes.editarCliente('@cliente.Id')">Editar</a>
+                                        <a class="dropdown-item text-danger" onclick="melc.clientes.excluirCliente('@cliente.Id', '@cliente.Nome')">Excluir</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@{
+    await Html.RenderPartialAsync("~/Views/Clientes/novo-cliente.cshtml");
+    await Html.RenderPartialAsync("~/Views/Clientes/update-cliente.cshtml");
+}
+
+<style>
+    .tableLines:hover {
+        cursor: pointer;
+        color:white;
+        background-color: rgb(70,84,108)
+    }
+
+    .custom-footer{
+        flex-direction: row;
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        padding-right: 2rem;
+    }
+
+    .card-body-adjusts{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+    }
+</style>

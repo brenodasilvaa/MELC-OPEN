@@ -1,0 +1,150 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.Commons.Enums
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Pedidos;
+@model RetornoDto<PedidosViewModel>
+
+@if(User.IsAdmin())
+{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+} 
+else
+{
+    Layout = "~/Views/Shared/_LayoutPadrao.cshtml";
+}
+
+@section Scripts {
+    @Url.Script("pedidos")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.pedidos.iniciar() })
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior'
+            });
+        });
+    </script>
+}
+
+<head>
+    <!-- Vendors styles-->
+    <link href="/css/datatables.min.css" rel="stylesheet">
+    <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="/css/jquery-ui.css" rel="stylesheet">
+    <script src="/js/jquery-ui.min.js"></script>
+</head>
+    <div style="margin-left:15px; margin-right:15px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">@Model.Data.Cliente</li>
+            </ol>
+        </nav>
+        <button onclick="melc.pedidos.novoPedido()" class="btn btn-primary btn-plus" type="submit">
+            <svg class="icon">
+                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+            </svg>
+            Pedido
+        </button>
+        <div class="card mb-5">
+            <div class="card-body p-4">
+                <table id="pedidoDataTable" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th hidden scope="col">#</th>
+                            <th scope="col">Número</th>
+                            <th scope="col">Pedido</th>
+                            <th scope="col">Situação</th>
+                            <th scope="col">Data de entrega</th>
+                        @if (User.IsAdmin())
+                        {
+                            <th scope="col">Ações</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pedido in Model.Data.Pedidos)
+                    {
+                        <tr id="@pedido.Id" class="@((pedido.Status == Status.Finished && !User.IsAdmin()) ? "unselecLine" : "tableLines")" onclick="melc.pedidos.getPedidoDetalhe('@pedido.Id')">
+                            <th hidden scope="row">@pedido.Id</th>
+                            <td class="tablePointer">@pedido.NumeroPedido</td>
+                            <td class="tablePointer">@pedido.Title</td>
+                            <td class="tablePointer">@pedido.Status.GetDescription()</td>
+                            <td class="tablePointer">@pedido.DataDeEntrega.ToString("d")</td>
+                            @if (User.IsAdmin())
+                            {
+                                <td>
+                                    <ul class="header-nav">
+                                        <li class="nav-item">
+                                            <a onclick="melc.pedidos.excluirPedido('@pedido.Id', '@pedido.ClienteId', '@pedido.Title')" class="nav-link">
+                                                <svg class="icon icon-lg">
+                                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-x"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+@{
+    await Html.RenderPartialAsync("~/Views/Pedidos/novo-pedido.cshtml", new NewPedidoViewModel() {  ClienteId = Model.Data.ClienteId });
+}
+
+
+<style>
+    .unselecLine {
+        pointer-events: none;
+        cursor: default;
+        opacity: 40%;
+    }
+
+    .unselecLine:hover {
+        cursor: not-allowed !important;
+    }
+
+    .ui-datepicker {
+        position: relative;
+        z-index: 10000 !important;
+    }
+
+    .custom-footer{
+        flex-direction: row;
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        padding-right: 2rem;
+    }
+
+    .card-body-adjusts{
+        display:flex;
+        flex-direction:column;
+        justify-content:space-around;
+    }
+
+    .btn-plus {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .tablePointer{
+        cursor: pointer !important;
+    }
+
+    .tableLines:hover{
+        background-color: rgb(222,224,226);
+        cursor: pointer !important;
+    }
+</style>

@@ -1,0 +1,25 @@
+﻿<div id="modalNovoTipoServicoPlaceholder">
+    <div class="modal fade" id="novoTipoServico" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Novo serviço</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewTipoServico" class="modal-body">
+                    <form class="row g-3">
+                        <div class="col-mg-3">
+                            <label for="servico" class="form-label">Serviço</label>
+                            <input placeholder="Ex: Serra" type="text" class="form-control" id="servico" required>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="preco" class="form-label">Preço por hora (R$)</label>
+                            <input placeholder="R$" type="text" class="form-control" id="preco" required>
+                        </div>
+                    </form>
+                    <button style="margin-top:1rem" onclick="melc.tipoServico.inserir()" id="novoTipoServicoBtn" class="btn btn-block btn-primary ">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

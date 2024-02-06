@@ -1,0 +1,103 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<DesenhoViewModel>
+
+@if (User.IsAdmin())
+{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_LayoutPadrao.cshtml";
+
+}
+
+@section Scripts {
+    @Url.Script("desenhos")
+    @Url.Script("percentuais")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.desenhoDetalhe.iniciar(@Html.Raw(JsonConverter.Serializar(Model.Data.Desenho))) })
+        $(document).ready(function () { melc.percentuais.iniciar()})
+    </script>
+}
+    <!DOCTYPE html>
+    <html lang="en">
+    <body>
+        <div style="margin-left:1rem; margin-right:1rem">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a href="/Pedidos/@Model.Data.Cliente.Id">@Model.Data.Cliente.Nome</a></li>
+                    <li class="breadcrumb-item" aria-current="page"> <a href="/Pedidos/GetDetalhe/@Model.Data.Pedido.Id">@Model.Data.Pedido.Title (#@Model.Data.Pedido.NumeroPedido)</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Data.Desenho.Title (#@Model.Data.Desenho.NumeroDesenho)</li>
+                </ol>
+            </nav>
+            <nav style="margin-top:2rem">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-coreui-toggle="tab" data-coreui-target="#nav-desenho" type="button" role="tab" aria-controls="nav-desenho" aria-selected="true">Detalhes</button>
+                    <button class="nav-link" id="nav-infos-tab" data-coreui-toggle="tab" data-coreui-target="#nav-infos" type="button" role="tab" aria-controls="nav-infos" aria-selected="false">Informações</button>
+                    <button class="nav-link" id="nav-arquivos-tab" data-coreui-toggle="tab" data-coreui-target="#nav-arquivos" type="button" role="tab" aria-controls="nav-arquivos" aria-selected="false">Arquivos</button>
+                    @if (User.IsAdmin())
+                    {
+                        <button class="nav-link" id="nav-percentuais-tab" data-coreui-toggle="tab" data-coreui-target="#nav-percentuais" type="button" role="tab" aria-controls="nav-percentuais" aria-selected="false">Percentuais</button>
+                        <button class="nav-link" id="nav-valores-tab" data-coreui-toggle="tab" data-coreui-target="#nav-valores" type="button" role="tab" aria-controls="nav-valores" aria-selected="false">Valores totais</button>
+                    }
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-desenho" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    @{
+                        await Html.RenderPartialAsync("~/Views/Desenhos/desenho-itens.cshtml");
+                    }
+                </div>
+                <div class="tab-pane fade" id="nav-infos" role="tabpanel" aria-labelledby="nav-infos-tab" tabindex="1">
+                    @{
+                        await Html.RenderPartialAsync("~/Views/Desenhos/desenho-infos.cshtml");
+                    }
+                </div>
+                <div class="tab-pane fade" id="nav-arquivos" role="tabpanel" aria-labelledby="nav-arquivos-tab" tabindex="2">
+                @{
+                    await Html.RenderPartialAsync("~/Views/Desenhos/desenho-arquivos.cshtml");
+                }
+                </div>
+                @if (User.IsAdmin())
+                {
+                    <div class="tab-pane fade" id="nav-valores" role="tabpanel" aria-labelledby="nav-valores-tab" tabindex="2">
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Desenhos/desenho-valores.cshtml");
+                        }
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-percentuais" role="tabpanel" aria-labelledby="nav-percentuais-tab" tabindex="2">
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Desenhos/desenho-percentuais.cshtml");
+                        }
+                    </div>
+                }
+            </div>            
+        </div>
+
+        @{
+            await Html.RenderPartialAsync("novo-servico", new NewDesenhoServicoViewModel { DesenhoId = Model.Data.Desenho.Id });
+            await Html.RenderPartialAsync("novo-material", new NewMaterialDesenhoViewModel { DesenhoId = Model.Data.Desenho.Id });
+            await Html.RenderPartialAsync("nova-peca-normalizada", new PecaNormalizadaDto { DesenhoId = Model.Data.Desenho.Id });
+            await Html.RenderPartialAsync("update-peca-normalizada", new PecaNormalizadaDto { DesenhoId = Model.Data.Desenho.Id });
+            await Html.RenderPartialAsync("nova-foto", new AddFilesModel { DesenhoId = Model.Data.Desenho.Id });
+            await Html.RenderPartialAsync("novo-frete", new NewFreteViewModel { DesenhoId = Model.Data.Desenho.Id });
+        }
+
+
+        <style>
+            .tableLines:hover{
+                cursor: pointer;
+                background-color: rgba(0, 0, 21, 0.05)
+            }
+
+            .btn-plus {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+        </style>
+</body>
+</html>

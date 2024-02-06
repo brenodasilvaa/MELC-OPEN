@@ -1,0 +1,61 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Pedidos
+@model RetornoDto<PedidoViewModel>
+
+<div class="mt-4">
+    <button onclick="melc.pedidos.novoFaturamento('@Model.Data.Pedido.Id')" class="btn btn-primary btn-plus" type="submit">
+        <svg class="icon">
+            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+        </svg>
+        Faturamento
+    </button>
+    <div class="card mb-5 mt-1">
+        <div class="card-body p-4">
+            @if(!Model.Data.Pedido.Faturamentos.Any()){
+                <h5>Não há faturamentos</h5>
+            }
+            else{
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Faturamento</th>
+                            <th scope="col">Criado por</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var faturamento in Model.Data.Pedido.Faturamentos)
+                        {
+                            <tr>
+                                <td>@faturamento.Title</td>
+                                <td>@faturamento.CriadoPor.UserName</td>
+                                <td>@faturamento.Created.ToString("G")</td>
+                                <td>
+                                    <ul class="header-nav">
+                                        <li class="nav-item tablePointer">
+                                            <a onclick="melc.pedidos.visualizarFaturamento('@faturamento.Id')" class="nav-link">
+                                                <svg class="icon icon-lg">
+                                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-zoom"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item tablePointer" style="margin-left:1rem">
+                                            <a onclick="melc.pedidos.baixarPdfFaturamento('@faturamento.Id')" class="nav-link">
+                                                <svg class="icon icon-lg">
+                                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-cloud-download"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

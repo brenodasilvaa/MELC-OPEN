@@ -1,0 +1,55 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Pedidos
+@model RetornoDto<PedidoViewModel>
+
+<div style="margin-top:15px">
+    <div class="card mb-5">
+        <div class="card-body p-4">
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="criadoPor" class="form-label">Criado por</label>
+                    <input readonly value="@Model.Data.Pedido.CriadoPor.UserName" type="text" class="form-control" id="criadoPor" disabled>
+                </div>
+                <div class="col-md-6">
+                    <label for="criacao" class="form-label">Data de criação</label>
+                    <input readonly value="@Model.Data.Pedido.Created" type="text" class="form-control" id="criacao" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label for="criadoPor" class="form-label">Status</label>
+                    <select id="status" class="form-select">
+                        <option value="0">Em fabricação</option>
+                        <option value="1">Parado</option>
+                        <option value="2">Finalizado</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="desenhos" class="form-label">Desenhos</label>
+                    <input readonly value="@Model.Data.Pedido.Desenhos.Count()" type="text" class="form-control" id="desenhos" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label for="desenhos-finalizados" class="form-label">Desenhos em progresso</label>
+                    <input readonly value="@Model.Data.Pedido.Desenhos.Count(x => x.Status == MELC.Core.Commons.Enums.Status.InProgress)" type="text" class="form-control" id="desenhos-finalizados" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label for="desenhos-parados" class="form-label">Desenhos finalizados</label>
+                    <input readonly value="@Model.Data.Pedido.Desenhos.Count(x => x.Status == MELC.Core.Commons.Enums.Status.Finished)" type="text" class="form-control" id="desenhos-parados" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" rows="3">@Model.Data.Pedido.Descricao</textarea>
+                </div>
+                <button id="pedidoInfoBtn" disabled class="btn btn-block btn-primary col-sm-2">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn-plus {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+</style>

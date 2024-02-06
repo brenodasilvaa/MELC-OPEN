@@ -1,0 +1,29 @@
+﻿<div id="modalNovoMaterialPlaceholder">
+    <div class="modal fade" id="novoMaterial" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Novo material</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewMaterial" class="modal-body">
+                    <form class="row g-3">
+                        <div class="col-mg-3">
+                            <label for="material" class="form-label">Material</label>
+                            <input placeholder="Ex: Ferro" type="text" class="form-control" id="material" required>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="densidade" class="form-label">Densidade (Kg/m³)</label>
+                            <input placeholder="Ex: 7,86" type="text" class="form-control" id="densidade" required>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="preco" class="form-label">Preço por Kg (R$)</label>
+                            <input placeholder="R$" type="text" class="form-control" id="preco" required>
+                        </div>
+                    </form>
+                    <button style="margin-top:1rem" onclick="melc.material.inserir()" id="novoMaterialBtn" class="btn btn-block btn-primary ">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

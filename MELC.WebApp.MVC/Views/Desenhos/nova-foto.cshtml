@@ -1,0 +1,45 @@
+﻿@using MELC.WebApp.MVC.Models.Desenhos
+@model AddFilesModel
+
+<div id="modalPlaceHolder">
+    <div class="modal fade" id="novaFoto" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div id="novaFotoContent" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Inserir foto</h5>
+                    <button onClick="melc.desenhoDetalhe.closeCamera()" id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNovaFoto" class="modal-body">
+                    <form id="novoDesenhoForm" enctype="multipart/form-data">
+                        <input id="desenhoId" hidden value = "@Model.DesenhoId"/>
+                        <div hidden id="cameraVideo" class="input-group mb-3">
+                            <video class="form-control" width="300" height="350" id="video" autoplay></video>
+                            <button onclick="melc.desenhoDetalhe.shoot()" id="btnFoto" class="btn btn-block btn-secondary" type="button">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-camera"></use>
+                                </svg>
+                            </button>   
+                        </div>
+                        <div hidden id="cameraCanvas" class="input-group mb-3">
+                            <canvas class="form-control" id="canvasPhoto" width="1000" height="1000" style="width:300px; height:350px"></canvas>
+                            <button onclick="melc.desenhoDetalhe.reShoot()" id="btnFoto" class="btn btn-block btn-secondary" type="button">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-reload"></use>
+                                </svg>
+                            </button>   
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input required id="nomeFoto" class="form-control" type="text" placeholder="Nome da foto">
+                        </div>
+                    </form>
+                    <button onclick="melc.desenhoDetalhe.salvarFoto('@Model.DesenhoId')" id="novaFotoBtn" class="btn btn-block btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

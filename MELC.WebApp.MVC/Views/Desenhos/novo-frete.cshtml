@@ -1,0 +1,36 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.Commons.Enums
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Models.Desenhos
+@model NewFreteViewModel
+
+<div id="modalnovoFretePlaceholder">
+    <div class="modal fade" id="novoFrete" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Novo frete</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewPecaNormalizada" class="modal-body">
+                    <form class="row g-3">
+                        <input hidden id="desenhoId" value="@Model.DesenhoId" />
+                        <div class="col-mg-3">
+                            <label for="quantidade" class="form-label">Nome</label>
+                            <div class="input-group">
+                                <input placeholder="Frete" class="form-control" type="text" id="nomeFrete" />
+                            </div>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="valor" class="form-label">Valor</label>
+                            <div class="input-group">
+                                <input placeholder="R$" class="form-control" type="text" id="valorFrete" />
+                            </div>
+                        </div>
+                    </form>
+                    <button style="margin-top:1rem" onclick="melc.desenhoDetalhe.inserirNovoFrete()" id="novoFreteBtn" class="btn btn-block btn-primary ">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

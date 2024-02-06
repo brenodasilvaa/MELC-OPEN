@@ -1,0 +1,43 @@
+﻿@using MELC.WebApp.MVC.Extensions
+
+<div id="modalPlaceHolder">
+    <div class="modal fade" id="editUser" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div id="editUserModalContent" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Editar usuário</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgEditUser" class="modal-body">
+                    <form>
+                        <input hidden type="text" class="form-control" id="updateUserId" required>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-user"></use>
+                                </svg>
+                            </span>
+                            <input id="editFullName" class="form-control" type="text" placeholder="Nome completo">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-user"></use>
+                                </svg>
+                            </span>
+                            <input id="editUserName" class="form-control" placeholder="Usuário">
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-text">
+                                <input id="editIsAdmin" class="form-check-input" type="checkbox">
+                            </div>
+                            <input type="text" disabled class="form-control" placeholder="Usuario administrador">
+                        </div>
+                    </form>
+                    <button onclick="melc.usuarios.updateUser()" id="btnEditUser" class="btn btn-block btn-primary">Editar usuário</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

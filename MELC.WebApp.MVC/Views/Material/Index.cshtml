@@ -1,0 +1,64 @@
+﻿@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions
+@model RetornoDto<IEnumerable<MaterialDto>>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+@section Scripts {
+    @Url.Script("material")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.material.iniciar() })
+    </script>
+}
+    <!DOCTYPE html>
+    <html lang="en">
+    <body>
+        <div style="margin-left:1rem; margin-right:1rem">
+            <button onclick="melc.material.new()" class="btn btn-primary btn-plus" type="submit">
+                <svg class="icon">
+                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                </svg>
+                Material
+            </button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th hidden scope="col">#</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Densidade (Kg/m³)</th>
+                        <th scope="col">Preço por Kg (R$)</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Data)
+                {
+                    <tr id="@item.Id">
+                        <th hidden scope="row">@item.Id</th>
+                        <td>@item.Nome</td>
+                        <td>@item.Densidade</td>
+                        <td>@item.Preco</td>
+                        <td>
+                            <ul class="header-nav">
+                                <li style="margin-right:3em" class="nav-item">
+                                    <a onclick="melc.material.update('@item.Id')" class="nav-link" href="#">
+                                        <svg class="icon icon-lg">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pen"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+@{
+    await Html.RenderPartialAsync("~/Views/Material/novo-material.cshtml");
+    await Html.RenderPartialAsync("~/Views/Material/update-material.cshtml");
+}
+</html>

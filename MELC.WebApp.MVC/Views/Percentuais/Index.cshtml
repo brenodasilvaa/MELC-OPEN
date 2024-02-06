@@ -1,0 +1,48 @@
+﻿@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions
+@model RetornoDto<PercentuaisDto>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+@section Scripts {
+    @Url.Script("percentuais")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.percentuais.iniciar() })
+    </script>
+}
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="card w-50 m-lg-3">
+        <div class="card-body p-4" style="margin-left:1rem; margin-right:1rem">
+            <div style="width:20rem;">
+                <input id="percentualId" value="@Model.Data.Id" hidden scope="row"></>
+                <div class="row g-3 justify-content-between mb-1">
+                    <div class="col-auto">
+                        <label class="col-form-label">Lucro (%)</label>
+                    </div>
+                    <div class="col-auto">
+                        <input value="@Model.Data.Lucro" type="text" id="lucros" class="form-control inputAlign">
+                    </div>
+                </div>
+                <div class="row g-3 justify-content-between">
+                    <div class="col-auto">
+                        <label class="col-form-label">Impostos (%)</label>
+                    </div>
+                    <div class="col-auto">
+                        <input value="@Model.Data.Impostos" type="text" id="impostos" class="form-control inputAlign">
+                    </div>
+                </div>
+                <button onclick="melc.percentuais.atualizar()" id="salvarPercentuais" disabled class="btn btn-block btn-primary mt-3">Salvar</button>
+            </div>
+        </div>
+    </div>
+     <style>
+         .inputAlign {
+            text-align: center
+         }
+     </style>
+</body>
+</html>

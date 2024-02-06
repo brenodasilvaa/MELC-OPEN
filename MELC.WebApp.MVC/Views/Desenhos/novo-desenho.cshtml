@@ -1,0 +1,122 @@
+﻿@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model NewDesenhoViewModel
+
+<div id="modalPlaceHolder">
+    <div class="modal fade" id="novoDesenho" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div id="novoDesenhoModalContent" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Cadastrar desenho</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewDesenho" class="modal-body">
+                    <form id="novoDesenhoForm" enctype="multipart/form-data">
+                        <input id="pedidoId" value="@Model.PedidoId" hidden />
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input required id="title" class="form-control" type="text" placeholder="Peça">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input id="numeroDesenho" class="form-control" type="number" placeholder="Número do desenho">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input id="conjunto" type="text" class="form-control" placeholder="Conjunto" aria-label="Conjunto">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input id="numeroConjunto" class="form-control" type="number" placeholder="Número do conjunto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input placeholder="Quantidade" min="1" type="number" class="form-control" id="quantidadePecas">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <input name="Files" class="form-control" accept=".jpeg, .png, .pdf" type="file" id="inputFiles" multiple="multiple">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-description"></use>
+                                        </svg>
+                                    </span>
+                                    <textarea maxlength="300" id="descricaoDesenho" class="form-control" placeholder="Descrição" aria-label="Descrição"></textarea>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-camera"></use>
+                                        </svg>
+                                    </span>
+                                    <input onclick="melc.desenhos.openCamera()" value="Acessar câmera" type="button" class="form-control" id="btnOpenCamera">
+                                    <input hidden onclick="melc.desenhos.closeCamera()" value="Fechar câmera" type="button" class="form-control" id="btnCloseCamera">
+                                </div>
+                            </div>
+                        </div>
+                        <div hidden id="cameraVideo" class="input-group mb-3">
+                            <video class="form-control" width="300" height="350" id="video" autoplay></video>
+                            <button onclick="melc.desenhos.shoot()" id="btnFoto" class="btn btn-block btn-secondary" type="button">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-camera"></use>
+                                </svg>
+                            </button>   
+                        </div>
+                        <div hidden id="cameraCanvas" class="input-group mb-3">
+                            <canvas class="form-control" id="canvasPhoto" width="1000" height="1000" style="width:300px; height:350px"></canvas>
+                            <button onclick="melc.desenhos.reShoot()" id="btnFoto" class="btn btn-block btn-secondary" type="button">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-reload"></use>
+                                </svg>
+                            </button>   
+                        </div>
+                    </form>
+                    <button onclick="melc.desenhos.criarNovoDesenho()" id="novoDesenhoBtn" class="btn btn-block btn-primary">Criar Desenho</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

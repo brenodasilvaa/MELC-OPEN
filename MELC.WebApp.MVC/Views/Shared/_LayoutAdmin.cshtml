@@ -1,0 +1,119 @@
+﻿@using MELC.WebApp.MVC.Extensions
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Maiola</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="~/assets/img/melc-logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/img/melc-logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/assets/img/melc-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/img/melc-logo.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="~/assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="/css/vendors/simplebar.css">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/jquery-3.6.4.min.js"></script>
+    @RenderSection("Scripts", required: false)
+  </head>
+  <body>
+    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+      <div class="sidebar-brand d-none d-md-flex">
+        <img src="/assets/img/melc-logo-branco.png" class="sidebar-brand-full" width="118" height="46">
+        <img src="/assets/img/melc-logo-branco.png" class="sidebar-brand-narrow" width="46" height="46">              
+      </div>
+      <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+        <li class="nav-title">Clientes</li>
+        <li class="nav-item">
+            <a asp-controller="Clientes" asp-action="Index" asp class="nav-link">
+                <svg class="nav-icon">
+                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-monitor"></use>
+                </svg> Ver todos<span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+        </li>
+        <li class="nav-title">Prioridades</li>
+        <li class="nav-item">
+            <a asp-controller="Desenhos" asp-action="Prioridades" asp class="nav-link">
+                <svg class="nav-icon">
+                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-bell"></use>
+                </svg> Ver todos<span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+        </li>
+        <li class="nav-title">Serviços e Materiais</li>
+        <li class="nav-item">
+            <a asp-controller="TipoServico" asp-action="Index" asp class="nav-link">
+                <svg class="nav-icon">
+                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-weightlifitng"></use>
+                </svg> Serviços <span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+            <a asp-controller="Material" asp-action="Index" asp class="nav-link">
+                <svg class="nav-icon">
+                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-soccer"></use>
+                </svg> Materiais <span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+        </li>
+        <li class="nav-title">Valores Percentuais</li>
+        <li class="nav-item">
+            <a asp-controller="Percentuais" asp-action="Index" asp class="nav-link">
+                <svg class="nav-icon">
+                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-dollar"></use>
+                </svg> Percentuais <span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+        </li>
+        <li class="nav-title">Contas</li>
+        <li class="nav-item">
+            <a asp-controller="User" asp-action="Index" asp class="nav-link">
+                <svg class="nav-icon">
+                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-user"></use>
+                </svg> Usuários <span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+      <header class="header header-sticky mb-4">
+        <div class="container-fluid">
+          <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+            <svg class="icon icon-lg">
+            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-menu"></use>
+            </svg>
+          </button><a class="header-brand d-md-none" href="#">
+            <svg width="118" height="46" alt="CoreUI Logo">
+            <use xlink:href="/assets/brand/melc-logo.svg#full"></use>
+            </svg></a>
+          <ul class="header-nav ms-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div style="background-color:#3c4b64; color:white" class="avatar avatar-md">@User.GetUserNameForamtted()</div>
+              </a>
+                <div class="dropdown-menu dropdown-menu-end pt-0">
+                    <div class="dropdown-header bg-light py-2">
+                        <div class="fw-semibold">Conta</div>
+                    </div>
+                    <a asp-controller="Identity" asp-action="logout" class="dropdown-item">
+                        <svg class="icon me-2">
+                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-account-logout"></use>
+                        </svg>Sair<span class="badge badge-sm bg-info ms-2"></span>
+                    </a>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </header>
+        @RenderBody()
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="/vendors/coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="/vendors/simplebar/js/simplebar.min.js"></script>
+    <!-- Plugins and scripts required by this view-->
+    <script src="/vendors/coreui/utils/js/coreui-utils.js"></script>
+
+    @Url.Script("melc")
+    @{
+        await Html.RenderPartialAsync("_ModalConfirm");
+        await Html.RenderPartialAsync("_Alert");
+        await Html.RenderPartialAsync("_Spinner");
+    }
+  </body>
+</html>

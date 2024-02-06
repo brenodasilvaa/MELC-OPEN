@@ -1,0 +1,106 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions
+@using MELC.WebApp.MVC.Models.Desenhos
+@using MELC.WebApp.MVC.Models.Faturamentos
+@using MELC.WebApp.MVC.Models.Pedidos
+@model RetornoDto<PedidoViewModel>
+
+@if (User.IsAdmin())
+{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_LayoutPadrao.cshtml";
+
+}
+
+@section Scripts {
+    @Url.Script("desenhos")
+    @Url.Script("pedidos")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.desenhos.iniciar(@Html.Raw(JsonConverter.Serializar(Model.Data.Pedido)));
+                                        melc.pedidos.iniciar(@Html.Raw(JsonConverter.Serializar(Model.Data.Pedido)))
+        })
+    </script>
+}
+    <!DOCTYPE html>
+    <html lang="en">
+    <body>
+        <div style="margin-left:1rem; margin-right:1rem">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a href="/Pedidos/@Model.Data.ClienteId">@Model.Data.Cliente</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> @Model.Data.Pedido.Title (#@Model.Data.Pedido.NumeroPedido)</li>
+                </ol>
+            </nav>
+            <nav style="margin-top:2rem">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-desenhos-tab" data-coreui-toggle="tab" data-coreui-target="#nav-desenhos" type="button" role="tab" aria-controls="nav-desenhos" aria-selected="true">Peças</button>
+                    <button class="nav-link" id="nav-infos-tab" data-coreui-toggle="tab" data-coreui-target="#nav-infos" type="button" role="tab" aria-controls="nav-infos" aria-selected="true">Informações</button>
+                    @if (User.IsAdmin())
+                    {
+                        <button class="nav-link" id="nav-valores-tab" data-coreui-toggle="tab" data-coreui-target="#nav-valores" type="button" role="tab" aria-controls="nav-valores" aria-selected="false">Valores totais</button>
+                        <button class="nav-link" id="nav-faturamentos-tab" data-coreui-toggle="tab" data-coreui-target="#nav-faturamentos" type="button" role="tab" aria-controls="nav-faturamentos" aria-selected="false">Faturamentos</button>
+                    }
+
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-desenhos" role="tabpanel" aria-labelledby="nav-desenhos-tab" tabindex="0">
+                    @{
+                        await Html.RenderPartialAsync("~/Views/Desenhos/_Desenhos.cshtml");
+                    }
+                </div>
+                <div class="tab-pane fade" id="nav-infos" role="tabpanel" aria-labelledby="nav-infos-tab" tabindex="1">
+                    @{
+                        await Html.RenderPartialAsync("~/Views/Pedidos/pedido-infos.cshtml");
+                    }
+                </div>
+                @if (User.IsAdmin())
+                { 
+                    <div class="tab-pane fade" id="nav-valores" role="tabpanel" aria-labelledby="nav-valores-tab" tabindex="2">
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Pedidos/pedido-valores.cshtml");
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="nav-faturamentos" role="tabpanel" aria-labelledby="nav-faturamentos-tab" tabindex="3">
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Pedidos/pedido-faturamentos.cshtml");
+                        }
+                    </div>
+                }
+            </div>            
+    </div>
+
+    <style>
+        .tableLines:hover{
+            cursor: pointer;
+            background-color: rgba(0, 0, 21, 0.05)
+        }
+
+        .label{
+            border-bottom-right-radius: 5px !important;
+            border-top-right-radius: 5px !important;
+            margin-left: 1px;
+        }
+
+        .label:hover{
+            cursor: default !important;
+        }
+
+        .btnLookDesenho{
+            border-radius: 5px!important;
+            margin-left: 1px !important;
+        }
+
+    </style>
+</body>
+
+@{
+    await Html.RenderPartialAsync("~/Views/Desenhos/novo-desenho.cshtml", new NewDesenhoViewModel() { PedidoId = Model.Data.Pedido.Id });
+    await Html.RenderPartialAsync("~/Views/Pedidos/novo-faturamento.cshtml", new NewFaturamentoViewModel() { PedidoId = Model.Data.Pedido.Id });
+    await Html.RenderPartialAsync("~/Views/Pedidos/ver-faturamento.cshtml");
+}
+</html>

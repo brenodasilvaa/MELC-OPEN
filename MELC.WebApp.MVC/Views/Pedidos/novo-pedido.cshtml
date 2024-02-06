@@ -1,0 +1,60 @@
+﻿@using MELC.WebApp.MVC.Models.Pedidos
+@model NewPedidoViewModel
+
+<div id="modalPlaceHolder">
+    <div class="modal fade" id="novoPedido" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div id="novoPedidoModalContent" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Cadastrar pedido</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewPedido" class="modal-body">
+                    <form method="post">
+                        <input id="clienteId" value="@Model.ClienteId" hidden />
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input id="pedido" class="form-control" type="text" placeholder="Pedido">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                        </svg>
+                                    </span>
+                                    <input id="numeroPedido" class="form-control" type="number" placeholder="Número do pedido">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-calendar"></use>
+                                </svg>
+                            </span>
+                            <input placeholder="Data de entrega" class="form-control" type="text" id="datepicker" />
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-description"></use>
+                                </svg>
+                            </span>
+                            <textarea id="descricao" class="form-control" placeholder="Descrição" aria-label="Descrição"></textarea>
+                        </div>
+                    </form>
+                    <button onclick="melc.pedidos.criarNovoPedido()" id="novoPedidoBtn" class="btn btn-block btn-primary">Criar Pedido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

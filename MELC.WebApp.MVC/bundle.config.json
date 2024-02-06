@@ -1,0 +1,59 @@
+{
+  "js": [
+    {
+      "name": "users",
+      "inputFiles": [
+        "/js/users/usuarios-painel.js"
+      ]
+    },
+    {
+      "name": "melc",
+      "inputFiles": [
+        "/js/melc/shared.js"
+      ]
+    },
+    {
+      "name": "desenhos",
+      "inputFiles": [
+        "/js/desenhos/desenhos-painel.js",
+        "/js/desenhos/desenho-detalhe.js",
+        "/js/desenhos/prioridades.js",
+        "/js/datatables.min.js",
+        "/js/jquery.dataTables.min.js",
+        "/js/dataTables.rowGroup.min.js"
+      ]
+    },
+    {
+      "name": "clientes",
+      "inputFiles": [
+        "/js/clientes/clientes-painel.js"
+      ]
+    },
+    {
+      "name": "pedidos",
+      "inputFiles": [
+        "/js/pedidos/pedidos-painel.js",
+        "/js/datatables.min.js",
+        "/js/jquery.dataTables.min.js"
+      ]
+    },
+    {
+      "name": "tipo-servico",
+      "inputFiles": [
+        "/js/tipo-servico/tipo-servico.js"
+      ]
+    },
+    {
+      "name": "material",
+      "inputFiles": [
+        "/js/material/material.js"
+      ]
+    },
+    {
+      "name": "percentuais",
+      "inputFiles": [
+        "/js/percentuais/percentuais.js"
+      ]
+    }
+  ]
+}

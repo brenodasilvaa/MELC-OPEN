@@ -1,0 +1,134 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.Commons.Enums
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<DesenhoViewModel>
+
+<div>
+    <input id="inputNewFile" type="file" hidden multiple accept=".jpeg, .png, .pdf">
+
+    <div style="dysplay-flex">
+        <button onclick="melc.desenhoDetalhe.addArquivos('@Model.Data.Desenho.Id')" class="btn btn-primary btn-plus">
+            <svg class="icon">
+                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+            </svg>
+            Arquivo
+        </button>
+
+        <button onclick="melc.desenhoDetalhe.openCamera('@Model.Data.Desenho.Id')" class="btn btn-primary btn-plus">
+            <svg class="icon">
+                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-camera"></use>
+            </svg>
+            Câmera
+        </button>
+    </div>
+
+
+    <div class="customRow cards">
+        @foreach (var arquivo in Model.Data.Arquivos.OrderByDescending(x => x.Created))
+        {
+            @if (arquivo.Extensao.ToLower() == @ArquivoExtensao.Pdf.GetDescription())
+            {
+                <div class="card" style="width: 18rem; margin-right:1rem; margin-bottom:1rem">
+                    <img class="card-img-top cardImage" id="pdf-js-viewer" src="~/assets/img/adobe_pdf.png">
+                    <div class="cardCustom cardSubtitleDiv">
+                        <h6 class="card-subtitle cardSubtitle mb-2 text-muted">@arquivo.NomeArquivo</h6>
+                    </div>
+                    <div class="card-footer cardCustom cardFooterPdf">
+                        <a onclick="melc.desenhoDetalhe.excluirArquivo('@arquivo.Id', '@arquivo.NomeArquivo')" class="btn btn-danger">Excluir</a>
+                        <div class="cardCustom">
+                            <a onclick="melc.desenhoDetalhe.verPdf('@arquivo.Id')" class="nav-link btnPdf">
+                                <svg class="icon icon-lg">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-zoom"></use>
+                                </svg>
+                            </a>
+                            <a onclick="melc.desenhoDetalhe.baixarPdf('@arquivo.Id')" class="nav-link btnPdf">
+                                <svg class="icon icon-lg">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-cloud-download"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card" style="width: 18rem; margin-right:1rem; margin-bottom:1rem">
+                    <img class="card-img-top cardImage" id="pdf-js-viewer" src="data:image/*;base64, @arquivo.Base64" frameborder="0">
+                    <div class="card-footer cardFooter">
+                        <a onclick="melc.desenhoDetalhe.excluirArquivo('@arquivo.Id', '@arquivo.NomeArquivo')" class="btn btn-danger">Excluir</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@{
+    await Html.RenderPartialAsync("ver-pdf");
+}
+
+
+<style>
+    .btn-plus {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width:fit-content;
+    }
+
+    .cardCustom{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center
+    }
+
+    .btnPdf{
+        margin-left: 1rem;
+    }
+
+    .btnPdf:hover{
+        cursor: pointer;
+    }
+
+    .cardSubtitle{
+        justify-content: center !important;
+        max-width: 100%;
+        overflow: hidden;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        height: 1rem;
+    }
+    
+    .cardSubtitleDiv{
+        justify-content: center !important;
+    }
+
+    .customRow{
+        margin: 1rem;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: calc(-1 * var(--cui-gutter-y));
+        margin-right: calc(-0.5 * var(--cui-gutter-x));
+        margin-left: calc(-0.5 * var(--cui-gutter-x));
+    }
+    
+    .cardImage{
+        height: 18rem;
+    }
+    
+    .cardFooterPdf{
+        display: flex;
+        align-items: center;
+        height: 4rem;
+    }
+    
+    .cardFooter{
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+</style>

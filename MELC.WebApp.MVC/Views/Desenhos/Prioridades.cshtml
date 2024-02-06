@@ -1,0 +1,102 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<IEnumerable<DesenhoDto>>
+
+@if(User.IsAdmin())
+{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+} 
+else
+{
+    Layout = "~/Views/Shared/_LayoutPadrao.cshtml";
+}
+
+@section Scripts {
+    @Url.Script("desenhos")
+    <script type="text/javascript" defer>
+        $(document).ready(function () { melc.desenhosPrioridades.iniciar() })
+    </script>
+}
+
+<head>
+    <!-- Vendors styles-->
+    <link href="/css/datatables.min.css" rel="stylesheet">
+    <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="/css/jquery-ui.css" rel="stylesheet">
+    <script src="/js/jquery-ui.min.js"></script>
+</head>
+<div style="margin-left:1rem; margin-right:1rem">
+    <h4>Prioridades</h4>
+    <div style="margin-top:15px">
+        <div class="card mb-5">
+            <div class="card-body p-4">
+                <table id="prioridadesDataTable" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th hidden scope="col">#</th>
+                            <th scope="col">Prioridade</th>
+                            <th scope="col">Peça</th>
+                            <th scope="col">Número</th>
+                            <th scope="col">Pedido</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var desenho in Model.Data)
+                    {
+                            <tr id="@desenho.Id" class="tableLines" onclick="melc.desenhosPrioridades.getDesenhoDetalhe('@desenho.Id')">
+                            <th hidden scope="row">@desenho.Id</th>
+                            <td class="tablePointer">@desenho.Prioridade</td>
+                            <td class="tablePointer">@desenho.Title</td>
+                            <td class="tablePointer">@desenho.NumeroDesenho</td>
+                            <td class="tablePointer">@desenho.Pedido.Title</td>
+                            <td class="tablePointer">@desenho.Pedido.Cliente.Nome</td>
+                            <td class="tablePointer">@desenho.Status.GetDescription()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .ui-datepicker {
+        position: relative;
+        z-index: 10000 !important;
+    }
+
+    .custom-footer{
+        flex-direction: row;
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        padding-right: 2rem;
+    }
+
+    .card-body-adjusts{
+        display:flex;
+        flex-direction:column;
+        justify-content:space-around;
+    }
+
+    .btn-plus {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .tablePointer{
+        cursor: pointer !important;
+    }
+
+    .tableLines:hover{
+        background-color: rgb(222,224,226);
+        cursor: pointer !important;
+    }
+</style>

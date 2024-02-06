@@ -1,0 +1,70 @@
+﻿@model MELC.WebApp.MVC.Models.UsuarioLogin
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Maiola</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="~/assets/img/melc-logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/img/melc-logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/assets/img/melc-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/img/melc-logo.png">
+    <!-- Vendors styles-->
+    <link rel="stylesheet" href="~/vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="~/css/vendors/simplebar.css">
+    <!-- Main styles for this application-->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/examples.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card-group d-block d-md-flex row">
+                        <div class="card col-md-7 p-4 mb-0">
+                            <div class="card-body">
+                                <h1>Entrar</h1>
+                                <p class="text-medium-emphasis">Acesse sua conta</p>
+                                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">
+                                            <svg class="icon">
+                                                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-user"></use>
+                                            </svg>
+                                        </span>
+                                        <input asp-for="UserName" class="form-control" placeholder="Usuário" />
+                                    </div>
+                                    <div class="input-group mb-4">
+                                        <span class="input-group-text">
+                                            <svg class="icon">
+                                                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-lock-locked"></use>
+                                            </svg>
+                                        </span>
+                                        <input asp-for="Senha" type="password" class="form-control" placeholder="Senha" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-primary px-4">Entrar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="~/vendors/coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="~/vendors/simplebar/js/simplebar.min.js"></script>
+    <script>
+    </script>
+
+</body>
+</html>

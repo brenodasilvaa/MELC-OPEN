@@ -1,0 +1,254 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<DesenhoViewModel>
+
+<div>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle mt-4" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
+            <svg class="icon">
+                <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+            </svg>
+        Inserir item
+      </button>
+      <ul class="dropdown-menu">
+        <li><a onclick="melc.desenhoDetalhe.novoServico()" class="dropdown-item" href="#">Serviço</a></li>
+        <li><a onclick="melc.desenhoDetalhe.novoMaterial()" class="dropdown-item" href="#">Material</a></li>
+        <li><a onclick="melc.desenhoDetalhe.novaPecaNormalizada()" class="dropdown-item" href="#">Peça normalizada</a></li>
+        <li><a onclick="melc.desenhoDetalhe.novoFrete()" class="dropdown-item" href="#">Frete</a></li>
+      </ul>
+    </div>
+    @if(Model.Data.Servicos.Any()){
+        <div class="card mt-4 mb-4">
+            <div class="card-body">
+                <div class="c-chart-wrapper" style="height:auto;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th hidden scope="col">#</th>
+                                <th scope="col">Serviço</th>
+                                <th scope="col">Tempo</th>
+                                <th scope="col">Funcionário</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Data.Servicos.OrderByDescending(x => x.Created))
+                            {
+                                <tr id="@item.Id" class="tableLines">
+                                    <th hidden scope="row">@item.Id</th>
+                                    <td>@item.TipoServico.Servico</td>
+                                    <td>@item.Tempo</td>
+                                    <td>@item.CriadoPor.UserName</td>
+                                    <td>@item.Created.ToString("dd/MM/yyyy")</td>
+                                    <td class="colunaAcao">
+                                        @if (item.CriadoPorId.ToString() == User.GetUserId() || User.IsAdmin())
+                                        {
+                                            <ul class="header-nav">
+                                                <li class="nav-item">
+                                                    <a onclick="melc.desenhoDetalhe.deleteServico('@item.Id', '@item.TipoServico.Servico')" class="nav-link">
+                                                        <svg class="icon icon-lg">
+                                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-x"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    
+    @if (Model.Data.Materiais.Any()) {
+        <div class="card mt-4 mb-4">
+            <div class="card-body">
+                <div class="c-chart-wrapper" style="height:auto;">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th hidden scope="col">#</th>
+                                        <th scope="col">Material</th>
+                                        <th scope="col">Formato</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Dimensões (mm)</th>
+                                        <th scope="col">Peso (Kg)</th>
+                                        <th scope="col">Funcionário</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var material in Model.Data.Materiais.OrderByDescending(x => x.Created))
+                                    {
+                                        <tr id="@material.Id" class="tableLines">
+                                            <th hidden scope="row">@material.Id</th>
+                                            <td>@material.Material.Nome</td>
+                                            <td>@material.Solido.TipoSolido.GetDescription()</td>
+                                            <td>@material.Quantidade</td>
+                                            <td data-coreui-toggle="tooltip" data-coreui-placement="top" title="@material.Solido.GetDimensoesLegendas()">
+                                                @material.Solido.GetDimensoesFormatadas()
+                                            </td>
+                                            <td>@material.Peso.ToString("N")</td>
+                                            <td>@material.CriadoPor.UserName</td>
+                                            <td>@material.Created.ToString("dd/MM/yyyy")</td>
+                                            <td colunaAcao>
+                                                @if (material.CriadoPorId.ToString() == User.GetUserId() || User.IsAdmin())
+                                                {
+                                                    <ul class="header-nav">
+                                                        <li class="nav-item">
+                                                            <a onclick="melc.desenhoDetalhe.deleteMaterial('@material.Id', '@material.Material.Nome')" class="nav-link">
+                                                                <svg class="icon icon-lg">
+                                                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-x"></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    @if (Model.Data.PecasNormalizadas.Any()) {
+        <div class="card mt-4 mb-4">
+            <div class="card-body">
+                <div class="c-chart-wrapper" style="height:auto;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th hidden scope="col">#</th>
+                                <th scope="col">Peça</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Preço (R$)</th>
+                                <th scope="col">Funcionário</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var peca in Model.Data.PecasNormalizadas.OrderByDescending(x => x.Created))
+                            {
+                                <tr id="@peca.Id" class="tableLines @(peca.Preco == 0 ? "missingPrice" : null)">
+                                    <th hidden scope="row">@peca.Id</th>
+                                    <td>@peca.Title</td>
+                                    <td>@peca.Quantidade</td>
+                                    <td>@peca.Preco.ToString("N")</td>
+                                    <td>@peca.CriadoPor.UserName</td>
+                                    <td>@peca.Created.ToString("dd/MM/yyyy")</td>
+                                    <td class="colunaAcao">
+                                        @if (peca.CriadoPorId.ToString() == User.GetUserId() || User.IsAdmin())
+                                        {
+                                            <ul class="header-nav">
+                                                <li class="nav-item">
+                                                    <a onclick="melc.desenhoDetalhe.showUpdatePecaNormalizada('@peca.Id')" class="nav-link">
+                                                        <svg class="icon icon-lg">
+                                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" style="margin-left:1rem">
+                                                    <a onclick="melc.desenhoDetalhe.deletePecaNormalizada('@peca.Id', '@peca.Title')" class="nav-link">
+                                                        <svg class="icon icon-lg">
+                                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-x"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Data.Fretes.Any())
+    {
+        <div class="card mt-4 mb-4">
+            <div class="card-body">
+                <div class="c-chart-wrapper" style="height:auto;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th hidden scope="col">#</th>
+                                <th scope="col">Frete</th>
+                                <th scope="col">Valor (R$)</th>
+                                <th scope="col">Funcionário</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var frete in Model.Data.Fretes.OrderByDescending(x => x.Created))
+                            {
+                                <tr id="@frete.Id" class="tableLines">
+                                    <th hidden scope="row">@frete.Id</th>
+                                    <td>@frete.Titulo</td>
+                                    <td>@frete.Valor.ToString("N")</td>
+                                    <td>@frete.CriadoPor.UserName</td>
+                                    <td>@frete.Created.ToString("dd/MM/yyyy")</td>
+                                    <td class="colunaAcao">
+                                        @if (frete.CriadoPorId.ToString() == User.GetUserId() || User.IsAdmin())
+                                        {
+                                            <ul class="header-nav">
+                                                <li class="nav-item" style="margin-left:1rem">
+                                                    <a onclick="melc.desenhoDetalhe.deleteFrete('@frete.Id', '@frete.Titulo')" class="nav-link">
+                                                        <svg class="icon icon-lg">
+                                                            <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-x"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+   
+</div>
+
+
+<style>
+    .btn-plus {
+        margin-top: 15px;
+    }
+
+    .tableLines:hover {
+        background-color: rgb(222,224,226);
+        cursor: pointer !important;
+    }
+
+    .missingPrice{
+        background-color: #e55353;
+    }
+
+    .colunaAcao{
+        width:8%;
+    }
+</style>

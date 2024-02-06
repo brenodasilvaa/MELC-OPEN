@@ -1,0 +1,42 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.Commons.Enums
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Models.Desenhos
+@model PecaNormalizadaDto
+
+<div id="modalNovaPecaNormalizadaPlaceholder">
+    <div class="modal fade" id="novaPecaNormalizada" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Cadastrar Peça Normalizada</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewPecaNormalizada" class="modal-body">
+                    <form class="row g-3">
+                        <input hidden id="desenhoId" value="@Model.DesenhoId" />
+                        <div class="col-mg-3">
+                            <label for="quantidade" class="form-label">Nome</label>
+                            <div class="input-group">
+                                <input placeholder="Nome" class="form-control" type="text" id="nomePecaNormalizada" />
+                            </div>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="quantidade" class="form-label">Quantidade</label>
+                            <div class="input-group">
+                                <input value="1" placeholder="Quantidade" class="form-control" min="1" type="number" id="quantidadePecaNormalizada" />
+                            </div>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="quantidade" class="form-label">Preço (un)</label>
+                            <div class="input-group">
+                                <input placeholder="R$" class="form-control" type="text" id="precoPecaNormalizada" />
+                            </div>
+                        </div>
+                    </form>
+                    <button style="margin-top:1rem" onclick="melc.desenhoDetalhe.inserirNovaPecaNormalizada()" id="novaPecaNormalizadaBtn" class="btn btn-block btn-primary ">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿<div id="modalPlaceHolder">
+    <div class="modal fade" id="novoCliente" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div id="novoClienteModalContent" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Cadastrar cliente</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewPedido" class="modal-body">
+                    <form>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input id="empresa" class="form-control" type="text" placeholder="Empresa">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input id="cnpj" class="form-control" type="text" placeholder="CNPJ (somente números)">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input id="rua" class="form-control" type="text" placeholder="Rua">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input id="numero" class="form-control" type="number" placeholder="Número">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg class="icon">
+                                    <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-plus"></use>
+                                </svg>
+                            </span>
+                            <input id="cidade" class="form-control" type="text" placeholder="Cidade">
+                        </div>
+                    </form>
+                    <button onclick="melc.clientes.criarNovoCliente()" class="btn btn-block btn-primary">Criar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

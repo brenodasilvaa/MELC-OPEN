@@ -1,0 +1,110 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.Commons.Enums
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Models.Desenhos
+@model NewMaterialDesenhoViewModel
+
+<div id="modalNovoMaterialPlaceholder">
+    <div class="modal fade" id="novoMaterial" data-coreui-backdrop="static" data-coreui-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropAlert">Cadastrar material</h5>
+                    <button id="btnClose" type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div id="dlgNewMaterial" class="modal-body">
+                    <form class="row g-3">
+                        <input hidden id="desenhoId" value="@Model.DesenhoId" />
+                        <div class="col-mg-3">
+                            <label for="materiais" class="form-label">Material</label>
+                            <select id="materiais" class="form-select">
+                                <option value="" selected>Selecione um material</option>
+                            </select>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="quantidade" class="form-label">Quantidade</label>
+                            <div class="input-group">
+                                <input value="1" placeholder="Quantidade" class="form-control" min="1" type="number" id="quantidadeId" />
+                            </div>
+                        </div>
+                        <div class="col-mg-3">
+                            <label for="formatos" class="form-label">Formato</label>
+                            <select id="formatos" class="form-select">
+                                <option value="" selected>Selecione um formato</option>
+                                <option value="@((int)TipoSolido.PerfilQuadrilatero)">@TipoSolido.PerfilQuadrilatero.GetDescription()</option>
+                                <option value="@((int)TipoSolido.PerfilRedondo)">@TipoSolido.PerfilRedondo.GetDescription()</option>
+                                <option value="@((int)TipoSolido.BarraRedonda)">@TipoSolido.BarraRedonda.GetDescription()</option>
+                                <option value="@((int)TipoSolido.BarraSextavada)">@TipoSolido.BarraSextavada.GetDescription()</option>
+                                <option value="@((int)TipoSolido.BarraQuadrilatera)">@TipoSolido.BarraQuadrilatera.GetDescription()</option>
+                                <option value="@((int)TipoSolido.PerfilL)">@TipoSolido.PerfilL.GetDescription()</option>
+                                <option value="@((int)TipoSolido.PerfilH)">@TipoSolido.PerfilH.GetDescription()</option>
+                                <option value="@((int)TipoSolido.PerfilU)">@TipoSolido.PerfilU.GetDescription()</option>
+                            </select>
+                        </div>
+                        <div hidden class="col-mg-3" id="divLargura">
+                            <div class="input-group" >
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                    </svg> 
+                                 </span>
+                                <input placeholder="Largura (mm)" class="form-control" type="text" id="larguraId" />
+                            </div>
+                        </div>
+                        <div hidden class="col-mg-3" id="divAltura">
+                            <div  class="input-group" >
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                    </svg> 
+                                </span>
+                                <input placeholder="Altura (mm)" class="form-control" type="text" id="alturaId" />
+                            </div>
+                        </div>
+                        <div hidden class="col-mg-3" id="divExpessura">
+                            <div  class="input-group" >
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                    </svg>
+                                </span>
+                                <input placeholder="Expessura (mm)" class="form-control" type="text" id="expessuraId" />
+                            </div>
+                        </div>
+                        <div hidden class="col-mg-3" id="divExpessuraSuperior">
+                            <div  class="input-group" >
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                    </svg>
+                                </span>
+                                <input placeholder="Expessura superior (mm)" class="form-control" type="text" id="expessuraSuperiorId" />
+                            </div>
+                        </div>
+                        <div hidden class="col-mg-3" id="divDiametro">
+                            <div  class="input-group" >
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                    </svg>
+                                </span>
+                                <input placeholder="Diâmetro (mm)" class="form-control" type="text" id="diametroId" />
+                            </div>
+                        </div>
+                        <div hidden class="col-mg-3" id="divComprimento">
+                            <div class="input-group" >
+                                <span class="input-group-text">
+                                    <svg class="icon">
+                                        <use xlink:href="/vendors/coreui/icons/svg/free.svg#cil-pencil"></use>
+                                    </svg>
+                                </span>
+                                <input placeholder="Comprimento (mm)" class="form-control" type="text" id="comprimentoId" />
+                            </div>
+                        </div>
+                    </form>
+                    <button style="margin-top:1rem" onclick="melc.desenhoDetalhe.inserirNovoMaterialDesenho()" id="novoMaterialDesenhoBtn" class="btn btn-block btn-primary ">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

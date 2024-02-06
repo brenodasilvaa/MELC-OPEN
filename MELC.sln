@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.Identidade.API", "MELC.Identidade.API\MELC.Identidade.API.csproj", "{AE67E78B-0117-483A-8C5A-B8A1DA0E144D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.WebApi.Core", "MELC.WebApi.Core\MELC.WebApi.Core.csproj", "{8ABFDC88-273B-4A85-99C0-297CDC1C8DC5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.WebApp.MVC", "MELC.WebApp.MVC\MELC.WebApp.MVC.csproj", "{13BDA03F-BE0D-43C0-810D-A00941E61CC4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.Main.API", "MELC.Tickets.API\MELC.Main.API.csproj", "{3D7EF6C7-AE35-4E39-86EC-67FB020296B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.Core", "MELC.Core\MELC.Core.csproj", "{99E2D982-3629-48CC-A471-C24E16C6FA76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.PDF.Facade", "MELC.PDF.Facade\MELC.PDF.Facade.csproj", "{65CEB790-1CA4-402E-BDEA-C1C1F840E3B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestePDF", "TestePDF\TestePDF.csproj", "{61ACDF34-B72F-4F20-928B-810EE4E35351}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE67E78B-0117-483A-8C5A-B8A1DA0E144D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE67E78B-0117-483A-8C5A-B8A1DA0E144D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE67E78B-0117-483A-8C5A-B8A1DA0E144D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE67E78B-0117-483A-8C5A-B8A1DA0E144D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ABFDC88-273B-4A85-99C0-297CDC1C8DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABFDC88-273B-4A85-99C0-297CDC1C8DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABFDC88-273B-4A85-99C0-297CDC1C8DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABFDC88-273B-4A85-99C0-297CDC1C8DC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13BDA03F-BE0D-43C0-810D-A00941E61CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13BDA03F-BE0D-43C0-810D-A00941E61CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13BDA03F-BE0D-43C0-810D-A00941E61CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13BDA03F-BE0D-43C0-810D-A00941E61CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7EF6C7-AE35-4E39-86EC-67FB020296B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7EF6C7-AE35-4E39-86EC-67FB020296B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7EF6C7-AE35-4E39-86EC-67FB020296B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7EF6C7-AE35-4E39-86EC-67FB020296B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E2D982-3629-48CC-A471-C24E16C6FA76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E2D982-3629-48CC-A471-C24E16C6FA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E2D982-3629-48CC-A471-C24E16C6FA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E2D982-3629-48CC-A471-C24E16C6FA76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65CEB790-1CA4-402E-BDEA-C1C1F840E3B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65CEB790-1CA4-402E-BDEA-C1C1F840E3B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65CEB790-1CA4-402E-BDEA-C1C1F840E3B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65CEB790-1CA4-402E-BDEA-C1C1F840E3B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB21F5DA-13AD-4838-8623-AF3B91D89B1C}
+	EndGlobalSection
+EndGlobal

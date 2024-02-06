@@ -1,0 +1,160 @@
+﻿@using MELC.Core.Commons
+@using MELC.Core.DomainObjects.Dtos
+@using MELC.WebApp.MVC.Extensions;
+@using MELC.WebApp.MVC.Models.Desenhos
+@model RetornoDto<DesenhoViewModel>
+
+<div class="mt-4">
+    <div class="card mb-4">
+        <div class="card-body p-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Serviço</th>
+                        <th scope="col">Funcionário</th>
+                        <th scope="col">Horas trabalhadas</th>
+                        <th scope="col">Preço por hora (R$)</th>
+                        <th scope="col">Total (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data.Desenho.Resumo.Servicos)
+                    {
+                        <tr>
+                            <td>@item.Servicos.First().TipoServico.Servico</td>
+                            <td>@item.Servicos.First().CriadoPor.UserName</td>
+                            <td>@item.TempoDeServicoFormatado</td>
+                            <td>@item.Servicos.First().TipoServico.Valor</td>
+                            <td class="colunaValores" >@item.Total.ToString("N")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="table-info">
+                        <td><b>Total</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="colunaValores" ><b>@Model.Data.Desenho.Resumo.ValorTotalServicos.ToString("N")</b></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body p-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Material</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Preço (R$)</th>
+                        <th scope="col">Total (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data.Desenho.Resumo.Materiais)
+                    {
+                        <tr>
+                            <td>@item.Materiais.First().Material.Nome</td>
+                            <td>@item.PesoTotal.ToString("N") Kg</td>
+                            <td>@item.Materiais.First().Material.Preco.ToString("N")</td>
+                            <td class="colunaValores" >@item.ValorTotal.ToString("N")</td>
+                        </tr>
+                    }
+                    @foreach (var item in Model.Data.Desenho.Resumo.PecasNormalizadas)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Quantidade pç</td>
+                            <td>@item.Preco.ToString("N")</td>
+                            <td class="colunaValores" >@item.Total.ToString("N")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="table-info">
+                        <td><b>Total</b></td>
+                        <td></td>
+                        <td></td>
+                        <td class="colunaValores" ><b>@Model.Data.Desenho.Resumo.ValorTotalMateriais.ToString("N")</b></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    @if(Model.Data.Desenho.FretesDesenhos.Any()){
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Frete</th>
+                            <th scope="col">Valor (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Data.Desenho.Resumo.Fretes)
+                        {
+                            <tr>
+                                <td>@item.Titulo</td>
+                                <td class="colunaValores">@item.Valor.ToString("N")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-info">
+                            <td><b>Total</b></td>
+                            <td class="colunaValores" ><b>@Model.Data.Desenho.Resumo.ValorTotalFrete.ToString("N")</b></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    }
+    <h5 class="card-title mb-0">Total</h5>
+    <div class="card mb-5">
+        <div class="card-body p-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Valor (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Serviços</td>
+                        <td class="colunaValores" >@Model.Data.Desenho.Resumo.ValorTotalServicos.ToString("N")</td>
+                    </tr>
+                    <tr>
+                        <td>Materiais</td>
+                        <td class="colunaValores" >@Model.Data.Desenho.Resumo.ValorTotalMateriais.ToString("N")</td>
+                    </tr>
+                    <tr>
+                        <td>Frete</td>
+                        <td class="colunaValores" >@Model.Data.Desenho.Resumo.ValorTotalFrete.ToString("N")</td>
+                    </tr>
+                    <tr>
+                        <td>Impostos</td>
+                        <td class="colunaValores" >@Model.Data.Desenho.Resumo.ValorTotalImpostos.ToString("N")</td>
+                    </tr>
+                    <tr>
+                        <td>Lucro</td>
+                        <td class="colunaValores" >@Model.Data.Desenho.Resumo.ValorTotalLucros.ToString("N")</td>
+                    </tr>
+                    <tr class ="table-info">
+                        <td><b>Total</b></td>
+                        <td class="colunaValores" ><b>@Model.Data.Desenho.Resumo.ValorTotal.ToString("N")</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .colunaValores{
+        width:10%
+    }
+</style>
