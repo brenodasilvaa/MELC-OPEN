@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  melc.identidade.api:
+    image: melc-identidade
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=User Id=postgres; Password=Bianka1616-; Host=MELC; Port=5432; Database=MELC;
+    build:
+      context: .
+      dockerfile: MELC.Identidade.API/Dockerfile
+    ports:
+     - "8084:80"
+    depends_on:
+     - MELCDB
+    networks:
+     - melcnetwork
+
+  MELCDB:
+    container_name: MELC
+    image: postgres:alpine
+    restart: always
+    environment:
+        POSTGRES_PASSWORD: Bianka1616-
+        POSTGRES_USER: postgres
+        POSTGRES_DB: MELC
+    volumes:
+    - melcdb:/var/lib/postgressql/data/
+    ports:
+    - "5432:5432"
+    networks:
+     - melcnetwork
+
+networks:
+  melcnetwork:
+   driver: bridge    
+
+volumes:
+  melcdb:
+  
+  

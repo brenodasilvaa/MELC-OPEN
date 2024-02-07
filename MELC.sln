@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.Core", "MELC.Core\MELC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MELC.PDF.Facade", "MELC.PDF.Facade\MELC.PDF.Facade.csproj", "{65CEB790-1CA4-402E-BDEA-C1C1F840E3B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestePDF", "TestePDF\TestePDF.csproj", "{61ACDF34-B72F-4F20-928B-810EE4E35351}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestePDF", "TestePDF\TestePDF.csproj", "{61ACDF34-B72F-4F20-928B-810EE4E35351}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D9D48212-630D-41EF-9152-8DD7020C9521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61ACDF34-B72F-4F20-928B-810EE4E35351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9D48212-630D-41EF-9152-8DD7020C9521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9D48212-630D-41EF-9152-8DD7020C9521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9D48212-630D-41EF-9152-8DD7020C9521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9D48212-630D-41EF-9152-8DD7020C9521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
