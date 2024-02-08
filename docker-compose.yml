@@ -5,7 +5,7 @@ services:
     image: melc-identidade
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=User Id=postgres; Password=Bianka1616-; Host=MELC; Port=5432; Database=MELC;
+      - ConnectionStrings__DefaultConnection=User Id=postgres; Password=Teste123-; Host=MELC; Port=5432; Database=MELC;
     build:
       context: .
       dockerfile: MELC.Identidade.API/Dockerfile
@@ -21,7 +21,7 @@ services:
     image: postgres:alpine
     restart: always
     environment:
-        POSTGRES_PASSWORD: Bianka1616-
+        POSTGRES_PASSWORD: Teste123-
         POSTGRES_USER: postgres
         POSTGRES_DB: MELC
     volumes:
